@@ -286,5 +286,48 @@
    "order": "3"
   }
  ],
- "_updated": "2026-11-07"
+ "_updated": "2026-11-07",
+ "briefing": {
+  "issue": "AIEO 글로벌 브리핑 No.1",
+  "date": "2026-11-07",
+  "note": "11월 5일 발행본에 이번 주 소식 두 가지를 더한 보충판",
+  "url": "https://socan.co.kr/ranking/?bmode=view&idx=175438940&t=board",
+  "items": [
+   {
+    "title": "구글 AI 모드와 AI 오버뷰의 링크가 늘어납니다",
+    "source": "Google 공식 블로그",
+    "date": "2026-10-15"
+   },
+   {
+    "title": "브랜드 이름 검색에서 AI 오버뷰 노출이 한 달 새 3배가 됐습니다",
+    "source": "DemandSphere",
+    "date": "2026-10-01"
+   },
+   {
+    "title": "네이버 AI 쇼핑 에이전트가 도착일까지 반영해 추천합니다",
+    "source": "네이버 보도자료",
+    "date": "2026-09-17"
+   },
+   {
+    "title": "ChatGPT 쇼핑에 가상 착용 기능이 들어왔습니다",
+    "source": "TechCrunch",
+    "date": "2026-10-01"
+   },
+   {
+    "title": "AI 답변 속 브랜드 논조는 언급 여부보다 자주 바뀝니다",
+    "source": "arXiv 2606.20065",
+    "date": "2026-06-18"
+   },
+   {
+    "title": "미국 쇼핑객 49%가 AI 추천만으로 낯선 브랜드도 사겠다고 답했습니다",
+    "source": "Talkdesk",
+    "date": "2026-11-04"
+   },
+   {
+    "title": "미국 AI 쇼핑 이용자 53%가 올 연말 Gemini를 쓰겠다고 답했습니다",
+    "source": "Omnisend · Sourcing Journal",
+    "date": "2026-11-04"
+   }
+  ]
+ }
 }

@@ -73,6 +73,16 @@
 .ab-take b { padding: 0 10px; margin: 0 2px; }
 .why li b { padding: 0 8px; }
 .tile .v small { color:#ff8a8a; }
+.brf { grid-column: span 12; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+.brf-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 8px; }
+.brf-h h2 { margin: 0; font-size: clamp(16px, 1.6vw, 19px); font-weight: 800; }
+.brf-h h2 small { font-size: 12px; font-weight: 500; color: var(--mu); margin-left: 8px; }
+.brf-h a { font-size: 12.5px; color: var(--ac); font-weight: 700; text-decoration: none; }
+.brf ol { margin: 0; padding: 0; list-style: none; counter-reset: b; display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+.brf li { counter-increment: b; display: flex; gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; font-weight: 600; line-height: 1.45; }
+.brf li:before { content: counter(b, decimal-leading-zero); color: #ff4b4b; font-weight: 800; font-size: 13px; min-width: 22px; }
+.brf li span { display: block; font-size: 11.5px; color: var(--mu); font-weight: 500; margin-top: 2px; }
+@media (max-width: 1000px) { .brf ol { grid-template-columns: 1fr; } }
 [data-dash-source-state=empty] { color: transparent; }
 [data-dash-source-state=refreshing] { opacity: .5; transition: opacity .3s; }
 @media (max-width: 1000px) { .tile { grid-column: span 6; } .card, .src { grid-column: span 12; } }
@@ -175,6 +185,11 @@
       <p class="last">AI 답변 속에 없으면 선택지에도 없습니다 · 측정이 먼저입니다</p>
     </div>
 
+    <div class="brf" id="briefing">
+      <div class="brf-h"><h2><span data-draw="brf_issue">이번 주 AIEO 글로벌 브리핑</span><small data-draw="brf_note"></small></h2><a data-draw="brf_link" href="https://socan.co.kr/ranking" target="_blank" rel="noopener">원문 전체 보기 · socan.co.kr</a></div>
+      <ol data-draw="brf_list"></ol>
+    </div>
+
     <details class="src">
       <summary>해외 지표 전체와 출처</summary>
       <table data-source="ov_kpi" data-row-key="key">
@@ -241,6 +256,11 @@ window.dash = (() => {
     const r = rows && findRow(rows, el.dataset.where);
     el.textContent = r ? String(r[el.dataset.field] ?? '') : '—';
   });
+  const brf = () => (dash.data('briefing').data && !Array.isArray(dash.data('briefing').data)) ? dash.data('briefing').data : null;
+  dash.draw('brf_issue', (e) => { const b = brf(); if (b) e.textContent = b.issue + ' · ' + b.date; });
+  dash.draw('brf_note', (e) => { const b = brf(); e.textContent = b && b.note ? b.note : ''; });
+  dash.draw('brf_link', (e) => { const b = brf(); if (b && b.url) e.href = b.url; });
+  dash.draw('brf_list', (ol) => { const b = brf(); ol.replaceChildren(); if (!b) return; for (const it of b.items) { const li = document.createElement('li'); const d = document.createElement('div'); d.textContent = it.title; const sp = document.createElement('span'); sp.textContent = it.source + ' · ' + it.date; d.appendChild(sp); li.appendChild(d); ol.appendChild(li); } });
   dash.draw('upd', (e) => { e.textContent = dash.meta(); });
   dash.draw('sw0', (e) => { e.textContent = ''; e.style.background = MU; });
   dash.draw('sw1', (e) => { e.textContent = ''; e.style.background = KR; });
