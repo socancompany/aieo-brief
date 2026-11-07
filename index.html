@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI추천시장 현황판 · AIEO브리핑</title>
+<meta name="description" content="소비자가 AI에게 추천을 묻는 비율과 AI 유입 고객의 전환율을 해외와 국내로 나눠 보여 주는 ㈜소셜디켄딩의 현황판">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1230'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%239fb0ff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>html,body{margin:0;background:#0d1230;min-height:100%}</style>
+</head>
+<body>
+<style>
+.ab { --bg: #0d1230; --panel: #151b42; --panel2: #1b2250; --line: #2a3268; --fg: #f3f5ff; --mu: #9aa3d6; --ac: #9fb0ff; --ac2: #ffb86b; --ok: #5ee0a0; --bad: #ff6b6b;
+  background: var(--bg); color: var(--fg); font-family: 'Noto Sans KR',system-ui,sans-serif; font-variant-numeric: tabular-nums; word-break: keep-all; padding: 20px clamp(16px, 2.5vw, 36px) 28px; min-height: 100%; }
+.ab * { box-sizing: border-box; }
+.ab-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.ab-bar h1 { margin: 0; font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; letter-spacing: -.5px; display: flex; align-items: center; gap: 12px; }
+.ab-bar h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(94,224,160,.18); }
+.ab-bar h1 small { font-size: 13px; font-weight: 500; color: var(--mu); letter-spacing: 0; }
+.ab-bar .meta { font-size: 12px; color: var(--mu); display: flex; gap: 16px; flex-wrap: wrap; }
+.ab-bar .meta b { color: var(--fg); font-weight: 600; }
+.ab-take { background: linear-gradient(90deg, #1c2458, #151b42); border: 1px solid var(--ac); border-left: 6px solid var(--ac); border-radius: 10px; padding: 16px 20px; font-size: clamp(16px, 1.6vw, 21px); font-weight: 700; line-height: 1.55; margin: 0 0 16px; }
+.ab-take b { color: var(--ac); font-weight: 800; font-size: 1.45em; line-height: 1; }
+.ab-grid { display: grid; gap: 12px; grid-template-columns: repeat(12, 1fr); }
+.ab-region-h { grid-column: span 12; display: flex; align-items: center; gap: 10px; margin: 6px 0 -4px; font-size: 13px; font-weight: 700; letter-spacing: .5px; color: var(--mu); text-transform: uppercase; }
+.ab-region-h i { width: 8px; height: 18px; border-radius: 2px; background: var(--ac); }
+.ab-region-h.kr i { background: var(--ac2); }
+.ab-region-h span { color: var(--fg); font-size: 15px; }
+.ab-region-h small { font-weight: 500; text-transform: none; letter-spacing: 0; }
+.tile { grid-column: span 3; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-height: 128px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.tile:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--ac); }
+.tile.kr:before { background: var(--ac2); }
+.tile .q { margin: 0; font-size: 12.5px; color: var(--mu); font-weight: 600; }
+.tile .v { margin: 6px 0 0; font-size: clamp(30px, 3.2vw, 44px); font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.tile .v small { font-size: .45em; font-weight: 700; margin-left: 2px; color: var(--mu); }
+.tile .d { margin: auto 0 0; padding-top: 8px; font-size: 11.5px; line-height: 1.4; color: #c9cff5; }
+.tile .s { margin: 4px 0 0; font-size: 11px; color: var(--mu); }
+.card { grid-column: span 6; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 12px; }
+.card h3 { margin: 0; font-size: 14.5px; font-weight: 700; }
+.card .n { margin: 3px 0 10px; font-size: 11.5px; color: var(--mu); }
+.ab-chart { position: relative; min-height: 180px; }
+.ab-chart svg { display: block; width: 100%; height: auto; }
+.ab-chart text { font-family: 'Noto Sans KR',system-ui,sans-serif; font-size: 12px; fill: var(--fg); font-weight: 600; }
+.ab-chart text.m { fill: var(--mu); font-weight: 500; }
+.ab-tip { position: absolute; pointer-events: none; background: #0a0e26; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.4); padding: 6px 10px; font-size: 12px; white-space: nowrap; color: var(--fg); }
+.ab-tip .t { color: var(--mu); }
+.ab-legend { display: flex; gap: 16px; font-size: 11.5px; color: var(--mu); margin-top: 6px; }
+.ab-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.why { grid-column: span 12; background: linear-gradient(135deg, #2a2f6e, #151b42); border: 1px solid var(--ac); border-radius: 12px; padding: 18px 22px; }
+.why h2 { margin: 0 0 10px; font-size: clamp(18px, 2vw, 24px); font-weight: 800; }
+.why ol { margin: 0; padding-left: 1.3em; font-size: clamp(14px, 1.3vw, 17px); font-weight: 600; line-height: 1.7; }
+.why li b { color: var(--ac); font-weight: 800; font-size: 1.35em; }
+.why .last { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: clamp(16px, 1.6vw, 21px); font-weight: 800; color: var(--ac2); }
+.src { grid-column: span 6; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.src summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--mu); }
+.src table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 8px; }
+.src th, .src td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.src th { color: var(--mu); font-weight: 600; }
+.src td.num { text-align: right; white-space: nowrap; font-weight: 700; }
+.cav { grid-column: span 12; font-size: 11.5px; color: var(--mu); line-height: 1.5; }
+.cav summary { cursor: pointer; font-weight: 600; }
+.cav ul { margin: 6px 0 0; padding-left: 1.2em; }
+.foot { margin-top: 14px; font-size: 11.5px; color: var(--mu); border-top: 1px solid var(--line); padding-top: 10px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity .3s; }
+@media (max-width: 1000px) { .tile { grid-column: span 6; } .card, .src { grid-column: span 12; } }
+@media (max-width: 520px) { .tile { grid-column: span 12; } }
+</style>
+
+<div class="ab" lang="ko">
+  <div class="ab-bar">
+    <h1 id="top"><span class="dot"></span>AI추천시장 현황판 <small>AIEO브리핑</small></h1>
+    <div class="meta"><span>발표 자료 기준 · 출처와 발표일 표기</span><span>갱신 <b data-draw="upd">—</b> · 매주 금요일 자동</span><span><b>㈜소셜디켄딩</b> SOCANcompany</span></div>
+  </div>
+
+  <p class="ab-take">해외에서는 AI가 보내 준 손님이 일반 손님보다 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=conv_gap">—</b>% 더 많이 사고 국내에서는 <b data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=chatgpt_use">—</b>%가 ChatGPT로 검색합니다 · AI 답변 속에 없으면 선택지에도 없습니다</p>
+
+  <div class="ab-grid">
+    <div class="ab-region-h" id="overseas"><i></i><span>해외</span><small>미국 중심 · Adobe · Talkdesk · Semrush · Microsoft</small></div>
+
+    <div class="tile">
+      <p class="q">쇼핑에 AI를 쓰는 미국 소비자</p>
+      <p class="v"><span data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=use_ai">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="ov_kpi" data-field="basis" data-where="key=use_ai">—</p>
+      <p class="s"><span data-draw="word" data-source="ov_kpi" data-field="source" data-where="key=use_ai">—</span> · <span data-draw="word" data-source="ov_kpi" data-field="date" data-where="key=use_ai">—</span></p>
+    </div>
+    <div class="tile">
+      <p class="q">AI 유입 트래픽 증가 (소매)</p>
+      <p class="v">+<span data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=ai_traffic">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="ov_kpi" data-field="basis" data-where="key=ai_traffic">—</p>
+      <p class="s"><span data-draw="word" data-source="ov_kpi" data-field="source" data-where="key=ai_traffic">—</span> · <span data-draw="word" data-source="ov_kpi" data-field="date" data-where="key=ai_traffic">—</span></p>
+    </div>
+    <div class="tile">
+      <p class="q">AI 유입 방문자 전환율 (비AI 대비)</p>
+      <p class="v">+<span data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=conv_gap">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="ov_kpi" data-field="basis" data-where="key=conv_gap">—</p>
+      <p class="s"><span data-draw="word" data-source="ov_kpi" data-field="source" data-where="key=conv_gap">—</span> · <span data-draw="word" data-source="ov_kpi" data-field="date" data-where="key=conv_gap">—</span></p>
+    </div>
+    <div class="tile">
+      <p class="q">AI 추천만으로 낯선 브랜드도 산다</p>
+      <p class="v"><span data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=buy_unknown">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="ov_kpi" data-field="basis" data-where="key=buy_unknown">—</p>
+      <p class="s"><span data-draw="word" data-source="ov_kpi" data-field="source" data-where="key=buy_unknown">—</span> · <span data-draw="word" data-source="ov_kpi" data-field="date" data-where="key=buy_unknown">—</span></p>
+    </div>
+
+    <div class="card">
+      <h3>AI 유입 고객 전환율 · 1년 만에 역전</h3>
+      <p class="n">비AI 유입 방문자 대비 전환율 차이 · 미국 소매 · Adobe Digital Insights 2026-04-16</p>
+      <div class="ab-chart dash-skeleton" data-draw="conv" data-source="ov_series" style="min-height:110px"></div>
+    </div>
+    <div class="card">
+      <h3>업종별 AI 유입 트래픽 증가율</h3>
+      <p class="n">2026년 1분기 전년 동기 대비 · 미국 · Adobe Digital Insights 2026-04-16</p>
+      <div class="ab-chart dash-skeleton" data-draw="industry" data-source="ov_series" style="min-height:190px"></div>
+    </div>
+
+    <div class="ab-region-h kr" id="korea"><i></i><span>국내</span><small>오픈서베이 · 네이버 발표</small></div>
+
+    <div class="tile kr">
+      <p class="q">ChatGPT를 검색에 쓴다</p>
+      <p class="v"><span data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=chatgpt_use">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="kr_kpi" data-field="basis" data-where="key=chatgpt_use">—</p>
+      <p class="s"><span data-draw="word" data-source="kr_kpi" data-field="source" data-where="key=chatgpt_use">—</span> · <span data-draw="word" data-source="kr_kpi" data-field="date" data-where="key=chatgpt_use">—</span></p>
+    </div>
+    <div class="tile kr">
+      <p class="q">네이버가 주 검색 수단이다</p>
+      <p class="v"><span data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=naver_primary">—</span><small>%</small></p>
+      <p class="d" data-draw="word" data-source="kr_kpi" data-field="basis" data-where="key=naver_primary">—</p>
+      <p class="s"><span data-draw="word" data-source="kr_kpi" data-field="source" data-where="key=naver_primary">—</span> · <span data-draw="word" data-source="kr_kpi" data-field="date" data-where="key=naver_primary">—</span></p>
+    </div>
+    <div class="tile kr">
+      <p class="q">네이버 AI 쇼핑 에이전트 일 거래액</p>
+      <p class="v"><span data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=agent_gmv">—</span><small>배</small></p>
+      <p class="d" data-draw="word" data-source="kr_kpi" data-field="basis" data-where="key=agent_gmv">—</p>
+      <p class="s"><span data-draw="word" data-source="kr_kpi" data-field="source" data-where="key=agent_gmv">—</span> · <span data-draw="word" data-source="kr_kpi" data-field="date" data-where="key=agent_gmv">—</span></p>
+    </div>
+    <div class="tile kr">
+      <p class="q">네이버 광고매출 중 AI 기여</p>
+      <p class="v"><span data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=ai_ad">—</span><small>%+</small></p>
+      <p class="d" data-draw="word" data-source="kr_kpi" data-field="basis" data-where="key=ai_ad">—</p>
+      <p class="s"><span data-draw="word" data-source="kr_kpi" data-field="source" data-where="key=ai_ad">—</span> · <span data-draw="word" data-source="kr_kpi" data-field="date" data-where="key=ai_ad">—</span></p>
+    </div>
+
+    <div class="card">
+      <h3>검색에 쓰는 서비스 · 6개월 사이 변화</h3>
+      <p class="n">이용률 % · 10~59세 1,000명 · 오픈서베이 AI 검색 트렌드 2026 상반기 → 하반기 (2026-07-02)</p>
+      <div class="ab-chart dash-skeleton" data-draw="search" data-source="kr_series" style="min-height:200px"></div>
+      <div class="ab-legend"><span><i data-draw="sw0"></i>2026 상반기</span><span><i data-draw="sw1"></i>2026 하반기</span></div>
+    </div>
+    <div class="card">
+      <h3>네이버 AI 쇼핑 에이전트 · 5개월 성장 배수</h3>
+      <p class="n">2026년 3월 대비 8월 · 네이버 발표 보도 2026-09-27</p>
+      <div class="ab-chart dash-skeleton" data-draw="agent" data-source="kr_series" style="min-height:140px"></div>
+    </div>
+
+    <div class="why" id="why">
+      <h2>그래서 AIEO디켄딩이 필요합니다</h2>
+      <ol>
+        <li>손님이 먼저 AI에게 묻습니다 · 국내 <b data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=ask_first">—</b>%는 궁금한 것을 바로 AI에게 묻고 미국 쇼핑객 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=holiday_ai">—</b>%는 연말 쇼핑에 AI를 쓸 계획입니다</li>
+        <li>AI가 보낸 손님은 더 잘 삽니다 · AI 유입 방문자 가치는 일반 방문자의 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=ai_value">—</b>배 · 가입 전환율은 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=llm_signup">—</b>% (자연검색 0.15%)</li>
+        <li>그런데 AI는 상품 페이지의 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=not_readable">—</b>%를 읽지 못합니다 · AI가 읽고 추천할 수 있게 측정하고 고치는 일이 AIEO디켄딩입니다</li>
+      </ol>
+      <p class="last">AI 답변 속에 없으면 선택지에도 없습니다 · 측정이 먼저입니다</p>
+    </div>
+
+    <details class="src">
+      <summary>해외 지표 전체와 출처</summary>
+      <table data-source="ov_kpi" data-row-key="key">
+        <thead><tr><th data-field="label">지표</th><th data-field="value">값</th><th data-field="unit">단위</th><th data-field="basis">기준</th><th data-field="source">출처</th><th data-field="date">발표</th></tr></thead>
+        <tbody data-draw="ov_table"></tbody>
+      </table>
+    </details>
+    <details class="src">
+      <summary>국내 지표 전체와 출처</summary>
+      <table data-source="kr_kpi" data-row-key="key">
+        <thead><tr><th data-field="label">지표</th><th data-field="value">값</th><th data-field="unit">단위</th><th data-field="basis">기준</th><th data-field="source">출처</th><th data-field="date">발표</th></tr></thead>
+        <tbody data-draw="kr_table"></tbody>
+      </table>
+    </details>
+
+    <details class="cav">
+      <summary>읽을 때 주의할 점</summary>
+      <ul>
+        <li>Adobe · Semrush · Microsoft Clarity · Talkdesk 수치는 각 기업이 자사 데이터나 의뢰 조사를 바탕으로 발표한 것으로 AI 관련 사업 이해관계가 있습니다</li>
+        <li>AI 유입 방문의 상당수는 참조 정보(referrer)가 남지 않아 실제 AI 유입은 집계보다 클 수 있습니다</li>
+        <li>Talkdesk와 Omnisend 조사는 실제 구매 행동이 아니라 의향을 물은 설문입니다</li>
+        <li>오픈서베이는 10~59세 온라인 패널 1,000명 조사이며 네이버 수치는 네이버 자체 발표입니다</li>
+        <li>모든 수치는 발표일 기준이며 출처 원문은 AIEO 글로벌 브리핑과 디켄딩 리포트에서 확인할 수 있습니다</li>
+      </ul>
+    </details>
+  </div>
+
+  <p class="foot"><span>이진우 · ㈜소셜디켄딩 대표 · 『AI가 장을 보는 시대 How to be Chosen』 저자</span><span>socan.co.kr</span></p>
+</div>
+
+<script>
+window.dash = (() => {
+  const draws = {}, state = {status: 'loading', data: {}};
+  const run = () => { for (const [n, fn] of Object.entries(draws)) document.querySelectorAll(`[data-draw="${n}"]`).forEach((el) => { try { fn(el); } catch (e) { console.error(n, e); } }); };
+  fetch('data.json?t=' + Date.now()).then((r) => r.json()).then((d) => { state.data = d; state.status = 'ok'; run(); }).catch((e) => { state.status = 'error'; console.error(e); run(); });
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(run, 150); });
+  return {
+    data: (id) => ({status: state.status === 'ok' && state.data[id] ? 'ok' : state.status, data: state.data[id] || []}),
+    draw: (n, fn) => { draws[n] = fn; },
+    meta: () => state.data._updated || '—',
+  };
+})();
+</script>
+<script>
+(function () {
+  const OV = '#9fb0ff', KR = '#ffb86b', MU = '#3a437a', BAD = '#ff6b6b', AX = '#2a3268';
+  const fmtN = (v) => { const n = Number(v); return Number.isFinite(n) ? d3.format(',.2~f')(n) : '—'; };
+  const rowsOf = (id) => { const g = dash.data(id); return g.status === 'ok' ? g.data : null; };
+  const findRow = (rows, where) => { const [k, v] = where.split('='); return rows.find((r) => String(r[k]) === v); };
+
+  dash.draw('num', (el) => {
+    const rows = rowsOf(el.dataset.source);
+    const r = rows && findRow(rows, el.dataset.where);
+    el.textContent = r ? fmtN(r[el.dataset.field]) : '—';
+  });
+  dash.draw('word', (el) => {
+    const rows = rowsOf(el.dataset.source);
+    const r = rows && findRow(rows, el.dataset.where);
+    el.textContent = r ? String(r[el.dataset.field] ?? '') : '—';
+  });
+  dash.draw('upd', (e) => { e.textContent = dash.meta(); });
+  dash.draw('sw0', (e) => { e.textContent = ''; e.style.background = MU; });
+  dash.draw('sw1', (e) => { e.textContent = ''; e.style.background = KR; });
+
+  const table = (name, id) => dash.draw(name, (tb) => {
+    const rows = rowsOf(id);
+    tb.replaceChildren();
+    if (!rows) return;
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      tr.dataset.key = String(r.key);
+      const cells = [r.label, fmtN(r.value), r.unit, r.basis, r.source, r.date];
+      cells.forEach((c, i) => { const td = document.createElement('td'); if (i === 1) td.className = 'num'; td.textContent = String(c ?? ''); tr.appendChild(td); });
+      tb.appendChild(tr);
+    }
+  });
+  table('ov_table', 'ov_kpi');
+  table('kr_table', 'kr_kpi');
+
+  const tip = (box) => {
+    let t = box.querySelector('.ab-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'ab-tip'; t.hidden = true; box.appendChild(t); }
+    return t;
+  };
+  const place = (t, box, x, y) => {
+    t.hidden = false;
+    const w = t.offsetWidth, bw = box.clientWidth;
+    t.style.left = Math.max(0, Math.min(x + 10, bw - w)) + 'px';
+    t.style.top = Math.max(0, y - t.offsetHeight - 8) + 'px';
+  };
+  const textW = (svg, s) => { const t = svg.append('text').text(s); const w = t.node().getComputedTextLength(); t.remove(); return w; };
+
+  // horizontal bars: rows [{label, value}], value in `unit`; allows negatives
+  const hbars = (box, rows, unit, color) => {
+    box.classList.remove('dash-skeleton');
+    const tipEl = tip(box);
+    d3.select(box).selectAll('svg').remove();
+    if (!rows) { tipEl.hidden = true; return; }
+    const W = Math.max(240, box.clientWidth), barH = 26, gap = 10;
+    const H = rows.length * (barH + gap) + 8;
+    const svg = d3.select(box).insert('svg', ':first-child').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const lw = d3.max(rows, (r) => textW(svg, r.label)) + 12;
+    const vw = d3.max(rows, (r) => textW(svg, (r.value > 0 ? '+' : '') + fmtN(r.value) + unit)) + 12;
+    const lo = Math.min(0, d3.min(rows, (r) => r.value)), hi = Math.max(0, d3.max(rows, (r) => r.value));
+    const x = d3.scaleLinear([lo, hi], [lw + (lo < 0 ? vw : 0), W - vw]);
+    const g = svg.selectAll('g').data(rows).join('g').attr('transform', (d, i) => `translate(0,${4 + i * (barH + gap)})`);
+    g.append('text').attr('x', lw - 12).attr('y', barH / 2).attr('dy', '.35em').attr('text-anchor', 'end').text((d) => d.label);
+    g.append('rect').attr('x', (d) => Math.min(x(0), x(d.value))).attr('width', (d) => Math.abs(x(d.value) - x(0))).attr('height', barH).attr('rx', 4)
+      .attr('fill', (d) => d.value < 0 ? BAD : color);
+    g.append('text').attr('x', (d) => d.value < 0 ? x(d.value) - 6 : x(d.value) + 6).attr('y', barH / 2).attr('dy', '.35em')
+      .attr('text-anchor', (d) => d.value < 0 ? 'end' : 'start').text((d) => (d.value > 0 ? '+' : '') + fmtN(d.value) + unit);
+    if (lo < 0) svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H).attr('stroke', AX);
+    g.on('pointermove', (ev, d) => {
+      tipEl.innerHTML = '';
+      const a = document.createElement('div'); a.className = 't'; a.textContent = d.label;
+      const b = document.createElement('div'); b.textContent = (d.value > 0 ? '+' : '') + fmtN(d.value) + unit;
+      tipEl.append(a, b);
+      const [px, py] = d3.pointer(ev, box);
+      place(tipEl, box, px, py);
+    }).on('pointerleave', () => { tipEl.hidden = true; });
+  };
+
+  const seriesRows = (id, type) => { const rows = rowsOf(id); return rows ? rows.filter((r) => r.type === type).sort((a, b) => Number(a.order) - Number(b.order)) : null; };
+
+  dash.draw('conv', (box) => {
+    const rows = seriesRows('ov_series', 'conv');
+    hbars(box, rows && rows.map((r) => ({label: r.label, value: Number(r.value)})), '%', OV);
+  });
+  dash.draw('industry', (box) => {
+    const rows = seriesRows('ov_series', 'industry');
+    hbars(box, rows && rows.map((r) => ({label: r.label, value: Number(r.value)})), '%', OV);
+  });
+  dash.draw('agent', (box) => {
+    const rows = seriesRows('kr_series', 'agent');
+    hbars(box, rows && rows.map((r) => ({label: r.label, value: Number(r.value)})), '배', KR);
+  });
+
+  // grouped bars: h1 vs h2 per platform
+  dash.draw('search', (box) => {
+    box.classList.remove('dash-skeleton');
+    const tipEl = tip(box);
+    d3.select(box).selectAll('svg').remove();
+    const rows = seriesRows('kr_series', 'search');
+    if (!rows) { tipEl.hidden = true; return; }
+    const W = Math.max(240, box.clientWidth), m = {t: 8, r: 8, b: 26, l: 8};
+    const H = 200;
+    const svg = d3.select(box).insert('svg', ':first-child').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const x0 = d3.scaleBand(rows.map((r) => r.label), [m.l, W - m.r]).paddingInner(0.35).paddingOuter(0.15);
+    const x1 = d3.scaleBand(['h1', 'h2'], [0, x0.bandwidth()]).padding(0.12);
+    const y = d3.scaleLinear([0, 100], [H - m.b, m.t + 14]);
+    const cols = {h1: MU, h2: KR};
+    const g = svg.selectAll('g.p').data(rows).join('g').attr('class', 'p').attr('transform', (d) => `translate(${x0(d.label)},0)`);
+    g.selectAll('rect').data((d) => ['h1', 'h2'].map((k) => ({k, v: Number(d[k]), label: d.label}))).join('rect')
+      .attr('x', (d) => x1(d.k)).attr('y', (d) => y(d.v)).attr('width', x1.bandwidth()).attr('height', (d) => y(0) - y(d.v)).attr('rx', 3).attr('fill', (d) => cols[d.k])
+      .on('pointermove', (ev, d) => {
+        tipEl.innerHTML = '';
+        const a = document.createElement('div'); a.className = 't'; a.textContent = d.label + ' · ' + (d.k === 'h1' ? '2026 상반기' : '2026 하반기');
+        const b = document.createElement('div'); b.textContent = fmtN(d.v) + '%';
+        tipEl.append(a, b);
+        const [px, py] = d3.pointer(ev, box);
+        place(tipEl, box, px, py);
+      }).on('pointerleave', () => { tipEl.hidden = true; });
+    g.selectAll('text.v').data((d) => ['h1', 'h2'].map((k) => ({k, v: Number(d[k])}))).join('text').attr('class', (d) => d.k === 'h1' ? 'v m' : 'v')
+      .attr('x', (d) => x1(d.k) + x1.bandwidth() / 2).attr('y', (d) => y(d.v) - 4).attr('text-anchor', 'middle').text((d) => fmtN(d.v));
+    g.append('text').attr('x', x0.bandwidth() / 2).attr('y', H - 8).attr('text-anchor', 'middle').text((d) => d.label);
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', AX);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+{
+ "ov_kpi": [
+  {
+   "key": "ai_traffic",
+   "label": "소매 사이트 AI 유입 트래픽 증가",
+   "value": "393",
+   "unit": "%",
+   "basis": "2026년 1분기 전년 동기 대비 · 미국 소매 1조 회 이상 방문 분석",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "conv_gap",
+   "label": "AI 유입 방문자 전환율 차이",
+   "value": "42",
+   "unit": "%",
+   "basis": "2026년 3월 비AI 유입 대비 · 1년 전에는 -38%",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "rpv",
+   "label": "AI 유입 방문당 매출 차이",
+   "value": "37",
+   "unit": "%",
+   "basis": "2026년 3월 비AI 유입 대비",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "time_on_site",
+   "label": "AI 유입 방문자 체류시간 차이",
+   "value": "48",
+   "unit": "%",
+   "basis": "비AI 유입 대비 · 이탈률은 32% 낮음",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "use_ai",
+   "label": "쇼핑에 AI를 쓰는 미국 소비자",
+   "value": "39",
+   "unit": "%",
+   "basis": "2026년 3월 미국 소비자 5000명 이상 설문",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "trust_ai",
+   "label": "AI 쇼핑 추천을 신뢰한다",
+   "value": "66",
+   "unit": "%",
+   "basis": "같은 설문 · 85%는 쇼핑 경험이 나아졌다고 답함",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  },
+  {
+   "key": "buy_unknown",
+   "label": "AI 추천만으로 낯선 브랜드도 산다",
+   "value": "49",
+   "unit": "%",
+   "basis": "2026년 9월 미국 온라인 쇼핑객 1048명 설문 · 의향 조사",
+   "source": "Talkdesk · Centiment",
+   "date": "2026-11-04"
+  },
+  {
+   "key": "holiday_ai",
+   "label": "연말 쇼핑에 AI 어시스턴트를 쓸 계획",
+   "value": "74",
+   "unit": "%",
+   "basis": "같은 설문 · 소매기업 89%는 AI 에이전트 대비 중",
+   "source": "Talkdesk · Centiment",
+   "date": "2026-11-04"
+  },
+  {
+   "key": "llm_signup",
+   "label": "LLM 유입 방문자 가입 전환율",
+   "value": "1.66",
+   "unit": "%",
+   "basis": "자연검색 유입 0.15%의 약 11배 · 매체 1200곳",
+   "source": "Microsoft Clarity",
+   "date": "2025"
+  },
+  {
+   "key": "ai_value",
+   "label": "AI 유입 방문자 가치",
+   "value": "4.4",
+   "unit": "배",
+   "basis": "일반 자연검색 방문자 대비 · ChatGPT 추천 유입 +206%",
+   "source": "Semrush",
+   "date": "2025"
+  },
+  {
+   "key": "chatgpt_share",
+   "label": "AI 유입 가운데 ChatGPT 비중",
+   "value": "87",
+   "unit": "%",
+   "basis": "2025~2026년 초 · Gemini는 11% 넘어 성장 중",
+   "source": "Conductor 등 복수 집계",
+   "date": "2026"
+  },
+  {
+   "key": "not_readable",
+   "label": "AI가 읽지 못하는 상품 페이지",
+   "value": "34",
+   "unit": "%",
+   "basis": "상품 정보가 기계 판독 가능하지 않은 비율",
+   "source": "Adobe Digital Insights",
+   "date": "2026-04-16"
+  }
+ ],
+ "ov_series": [
+  {
+   "type": "industry",
+   "label": "소매",
+   "value": "393",
+   "order": "1"
+  },
+  {
+   "type": "industry",
+   "label": "여행",
+   "value": "233",
+   "order": "2"
+  },
+  {
+   "type": "industry",
+   "label": "금융",
+   "value": "158",
+   "order": "3"
+  },
+  {
+   "type": "industry",
+   "label": "미디어",
+   "value": "84",
+   "order": "4"
+  },
+  {
+   "type": "industry",
+   "label": "기술",
+   "value": "63",
+   "order": "5"
+  },
+  {
+   "type": "conv",
+   "label": "2025년 3월",
+   "value": "-38",
+   "order": "1"
+  },
+  {
+   "type": "conv",
+   "label": "2026년 3월",
+   "value": "42",
+   "order": "2"
+  }
+ ],
+ "kr_kpi": [
+  {
+   "key": "chatgpt_use",
+   "label": "ChatGPT를 검색에 쓴다",
+   "value": "58.1",
+   "unit": "%",
+   "basis": "2026년 하반기 · 10~59세 1000명 · 6개월 전 54.5%",
+   "source": "오픈서베이 AI 검색 트렌드 2026 하반기",
+   "date": "2026-07-02"
+  },
+  {
+   "key": "gemini_use",
+   "label": "Gemini를 검색에 쓴다",
+   "value": "52.2",
+   "unit": "%",
+   "basis": "같은 조사 · 6개월 새 23.3%p 증가",
+   "source": "오픈서베이 AI 검색 트렌드 2026 하반기",
+   "date": "2026-07-02"
+  },
+  {
+   "key": "naver_primary",
+   "label": "네이버가 주 검색 수단이다",
+   "value": "38.8",
+   "unit": "%",
+   "basis": "같은 조사 · 6개월 새 7.2%p 감소 · 이용률은 77.7%",
+   "source": "오픈서베이 AI 검색 트렌드 2026 하반기",
+   "date": "2026-07-02"
+  },
+  {
+   "key": "ask_first",
+   "label": "궁금한 건 바로 AI에게 묻는다",
+   "value": "56.9",
+   "unit": "%",
+   "basis": "같은 조사 · 꼬리질문까지 이어가는 비율 42.3%",
+   "source": "오픈서베이 AI 검색 트렌드 2026 하반기",
+   "date": "2026-07-02"
+  },
+  {
+   "key": "trust_gemini",
+   "label": "Gemini 답변을 신뢰한다",
+   "value": "57.5",
+   "unit": "%",
+   "basis": "같은 조사 · ChatGPT 48.0% · 만족도 Gemini 77.3% ChatGPT 70.6%",
+   "source": "오픈서베이 AI 검색 트렌드 2026 하반기",
+   "date": "2026-07-02"
+  },
+  {
+   "key": "agent_gmv",
+   "label": "네이버 AI 쇼핑 에이전트 일 거래액",
+   "value": "4",
+   "unit": "배",
+   "basis": "2026년 3월 대비 8월 · 이용자와 대화 수는 약 5배",
+   "source": "네이버 발표 보도",
+   "date": "2026-09-27"
+  },
+  {
+   "key": "agent_gmv_q",
+   "label": "AI 쇼핑 에이전트 거래액 증가",
+   "value": "82",
+   "unit": "%",
+   "basis": "정식 출시 6월 대비 9월 · 대화 수는 60% 증가",
+   "source": "네이버 보도자료",
+   "date": "2026-09-17"
+  },
+  {
+   "key": "ai_ad",
+   "label": "네이버 광고매출 중 AI 기여",
+   "value": "50",
+   "unit": "%",
+   "basis": "2026년 1분기 광고매출 1조3945억 원 · 전년 대비 10% 증가",
+   "source": "네이버 1분기 실적 발표",
+   "date": "2026-04-30"
+  },
+  {
+   "key": "longtail",
+   "label": "롱테일 검색 증가",
+   "value": "2.5",
+   "unit": "배",
+   "basis": "AI 브리핑 도입 후 · 후속 질문 클릭은 10배",
+   "source": "네이버 1분기 실적 발표",
+   "date": "2026-04-30"
+  }
+ ],
+ "kr_series": [
+  {
+   "type": "search",
+   "label": "ChatGPT",
+   "h1": "54.5",
+   "h2": "58.1",
+   "value": "",
+   "order": "1"
+  },
+  {
+   "type": "search",
+   "label": "Gemini",
+   "h1": "28.9",
+   "h2": "52.2",
+   "value": "",
+   "order": "2"
+  },
+  {
+   "type": "search",
+   "label": "네이버",
+   "h1": "81.6",
+   "h2": "77.7",
+   "value": "",
+   "order": "3"
+  },
+  {
+   "type": "agent",
+   "label": "월 이용자",
+   "h1": "",
+   "h2": "",
+   "value": "5",
+   "order": "1"
+  },
+  {
+   "type": "agent",
+   "label": "대화 수",
+   "h1": "",
+   "h2": "",
+   "value": "5",
+   "order": "2"
+  },
+  {
+   "type": "agent",
+   "label": "일 거래액",
+   "h1": "",
+   "h2": "",
+   "value": "4",
+   "order": "3"
+  }
+ ],
+ "_updated": "2026-11-07"
+}
