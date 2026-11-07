@@ -204,7 +204,13 @@
 window.dash = (() => {
   const draws = {}, state = {status: 'loading', data: {}};
   const run = () => { for (const [n, fn] of Object.entries(draws)) document.querySelectorAll(`[data-draw="${n}"]`).forEach((el) => { try { fn(el); } catch (e) { console.error(n, e); } }); };
-  fetch('data.json?t=' + Date.now()).then((r) => r.json()).then((d) => { state.data = d; state.status = 'ok'; run(); }).catch((e) => { state.status = 'error'; console.error(e); run(); });
+  const srcs = ['https://brief.socan.co.kr/data.json', 'https://gentle-beach-087323d00.5.azurestaticapps.net/data.json', 'data.json'];
+  (async () => {
+    for (const u of srcs) {
+      try { const r = await fetch(u + '?t=' + Date.now(), {cache: 'no-store'}); if (!r.ok) throw new Error(r.status); state.data = await r.json(); state.status = 'ok'; state.src = u; run(); return; } catch (e) { console.warn('skip', u, e.message); }
+    }
+    state.status = 'error'; run();
+  })();
   let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(run, 150); });
   return {
     data: (id) => ({status: state.status === 'ok' && state.data[id] ? 'ok' : state.status, data: state.data[id] || []}),

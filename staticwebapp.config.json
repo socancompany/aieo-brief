@@ -1,1 +1,1 @@
-{"routes": [], "navigationFallback": {"rewrite": "/index.html"}, "globalHeaders": {"cache-control": "no-cache"}}
+{"routes": [], "navigationFallback": {"rewrite": "/index.html"}, "globalHeaders": {"cache-control": "no-cache", "Access-Control-Allow-Origin": "*"}}
