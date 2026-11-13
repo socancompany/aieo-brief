@@ -92,7 +92,7 @@
 <div class="ab" lang="ko">
   <div class="ab-bar">
     <h1 id="top"><span class="dot"></span>AI추천시장 현황판 <small>AIEO브리핑</small></h1>
-    <div class="meta"><span>발표 자료 기준 · 출처와 발표일 표기</span><span>최근 확인 <b data-draw="upd">—</b> · 매주 금요일 새 발표 확인</span><span><b>㈜소셜디켄딩</b> SOCANcompany</span></div>
+    <div class="meta"><span>발표 자료 기준 · 출처와 발표일 표기</span><span>갱신 <b data-draw="upd">—</b> · 매주 금요일 자동</span><span><b>㈜소셜디켄딩</b> SOCANcompany</span></div>
   </div>
 
   <p class="ab-take">해외에서는 AI가 보내 준 손님이 일반 손님보다 <b data-draw="num" data-source="ov_kpi" data-field="value" data-where="key=conv_gap">—</b>% 더 많이 사고 국내에서는 <b data-draw="num" data-source="kr_kpi" data-field="value" data-where="key=chatgpt_use">—</b>%가 ChatGPT로 검색합니다 · AI 답변 속에 없으면 선택지에도 없습니다</p>
@@ -235,7 +235,7 @@ window.dash = (() => {
   return {
     data: (id) => ({status: state.status === 'ok' && state.data[id] ? 'ok' : state.status, data: state.data[id] || []}),
     draw: (n, fn) => { draws[n] = fn; },
-    meta: () => state.data._checked || state.data._updated || '—',
+    meta: () => state.data._updated || '—',
   };
 })();
 </script>
